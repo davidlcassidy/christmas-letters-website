@@ -1,0 +1,6 @@
+name = "christmas-letters-demo"
+pages_build_output_dir = ""
+compatibility_date = "2024-11-31"
+
+[env.production.vars]
+WEBSITE_PASSWORD = "demo123"

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎄</text></svg>">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Homemade+Apple&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+		:root {
+		  --background-header: #196719;
+		  --background-main: #D6F5D6;
+		  --background-card: white;
+		  --background-button: #196719;
+		  --background-slider: #DA3E3E;
+		  --border-card: #145214;
+		  --hover-button: #239023;
+		  --text-primary: #006400;
+		  --text-secondary: #DA3E3E;
+		  --text-button: white;
+		  --box-shadow-light: rgba(0, 0, 0, 0.08);
+		  --box-shadow-strong: rgba(0, 0, 0, 0.15);
+		}
+		
+		* {
+		  box-sizing: border-box;
+		}
+		
+		header {
+			background: var(--background-header);
+			color: var(--background-main);
+			padding: 20px;
+			text-align: center;
+			position: sticky;
+			top: 0;
+			z-index: 1000;
+			width: 100%;
+			border-bottom: 2px solid var(--background-main);
+		}
+
+		body {
+		  font-family: 'Twemoji Country Flags', 'Arial', sans-serif;
+		  margin: 0;
+		  padding: 0;
+		  background: var(--background-main);
+		  color: var(--text-primary);
+		  line-height: 1.6;
+		}
+
+		h1 {
+		  font-size: 36px;
+		  margin: 0;
+		  font-family: 'Georgia', serif;
+		}
+		  
+		h2 {
+		  text-align: center;
+		  color: var(--text-primary);
+		  font-size: 28px;
+		  font-family: 'Georgia', serif;
+		  margin: 0 0 30px 0;
+		  padding: 0; 
+		}
+
+		p {
+		  text-align: left;
+		  color: var(--text-primary);
+		  font-size: 20px;
+		  margin: 25px 0;
+		}
+	  
+		a {
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+	      text-align: center;
+		  padding: 3px 0px;
+		  margin: 5px;
+		  font-size: 20px;
+		  color: var(--text-button);
+		  background: var(--background-button);
+		  border-radius: 8px;
+		  text-decoration: none;
+		  gap: 10px
+		}
+
+		a:hover {
+		  background: var(--hover-button);
+		}
+	  
+		hr {
+		  border: none;
+		  height: 2px;
+		  background: var(--background-header);
+		  width: 75%;
+          margin: 50px auto 0px auto;
+		  border-radius: 5px;
+		}
+
+		#language-toggle {
+		  position: absolute;
+		  right: 25px;
+		  top: 50%;
+		  transform: translateY(-50%);
+		  display: flex;
+		  align-items: center;
+		  gap: 15px;
+		}
+
+		.switch {
+		  position: relative;
+		  display: inline-block;
+		  width: 50px;
+		  height: 28px;
+		}
+
+		.switch input {
+		  opacity: 0;
+		  width: 0;
+		  height: 0;
+		}
+
+		.slider {
+		  position: absolute;
+		  cursor: pointer;
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  bottom: 0;
+		  background-color: var(--background-slider);
+		  border-radius: 28px;
+		  transition: 0.4s;
+		}
+
+		.slider:before {
+		  position: absolute;
+		  content: "";
+		  height: 20px;
+		  width: 20px;
+		  left: 4px;
+		  bottom: 4px;
+		  background-color: var(--text-button);
+		  border-radius: 50%;
+		  transition: 0.4s;
+		}
+
+		input:checked + .slider:before {
+		  transform: translateX(22px);
+		}
+
+		.flag {
+		  font-size: 45px;
+		}
+
+	  .card {
+		width: 95%;
+		max-width: 1000px;
+		margin: 40px auto;
+		padding: 50px 30px;
+		background: var(--background-card);
+		border-radius: 15px;
+		box-shadow: 0px 4px 10px var(--box-shadow-strong);
+		border: 3px solid var(--border-card);
+		position: relative;
+		overflow: hidden;
+	  }
+	  
+	  #tree-container {
+		font-size: 40px;
+		letter-spacing: 14px;
+	  }
+	  
+	  #current-intro {
+		text-align: center;
+	  }
+	  
+	  #current-letters-buttons {
+		margin-top: 30px;
+		margin-bottom: 5px;
+	  }
+	  
+	  .flag-emoji {
+		font-size: 35px;
+	  }
+
+	  #current-letters-card a {
+		width: 230px;
+	  }
+	  
+	  #archive-header {
+		cursor: pointer;
+		margin-bottom:0px;
+	  }
+	  
+	  #archive-content {
+		display:none;
+		margin-top:30px
+	  }
+	  
+	  #archive-signature {
+		font-family: 'Homemade Apple', cursive;
+		font-size: 24px;
+		font-weight: bold;
+		color: var(--text-primary);
+	  }
+	  
+	  #archive-toggle {
+		background: none;
+		color: var(--text-primary);
+		font-size: 30px;
+		cursor: pointer;
+		position: absolute;
+		top: 55px;
+		right: 10px;
+		border: none;
+	  }
+
+	  .button-container {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
+		justify-content: center;
+	  }
+
+	  table {
+		width: 100%;
+		border: 2px solid var(--border-table);
+		overflow-x: auto;
+		margin-top: 25px;
+	  }
+
+	  table td {
+		padding: 25px;
+		text-align: center;
+		border-bottom: 2px solid var(--border-table);
+		word-wrap: break-word;
+	  }
+	  
+	  table tr:last-child td {
+		  border-bottom: none;
+		}
+
+	  table td.year {
+		font-size: 25px;
+		font-weight: bold;
+		color: var(--text-secondary);
+	  }
+
+	  table .button-container {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+	  }
+
+	  /* Mobile Responsiveness */
+	  @media (max-width: 1200px) {
+		#language-toggle {
+		  display: none;
+		}
+	  }
+	  
+	  @media (max-width: 768px) {
+		h1 {
+		  font-size: 29px;
+		}
+		
+		h2 {
+		  font-size: 22px;
+		}
+		
+		p {
+		  font-size: 16px;
+	    }
+		
+		hr {
+		  margin-top: 40px;
+		}
+		
+		a {
+		  font-size: 18px;
+	    }
+		
+		header {
+		  position: relative;
+		}
+		
+		.card {
+		  padding: 25px 20px;
+		}
+		
+		#tree-container {
+		  font-size: 30px;
+		}
+		
+		#current-letters-card a {
+		  width: 80%;
+		}
+
+		.button-container a {
+		  font-size: 20px;
+		}
+		
+		#archive-header {
+		  margin-right: 20px;
+		}
+		
+		#archive-toggle {
+			top: 20px;
+			right: 5px;
+		}
+		
+		#archive-signature {
+		  font-size: 20px;
+		}
+		
+		.flag-emoji {
+		  font-size: 32px;
+	    }
+		
+		table td {
+		  padding-right: 5px;
+		}
+		
+		table td.year {
+		  padding: 0px;
+		  transform: rotate(-90deg) translateY(-10px);
+		}
+		
+		table .button-container {
+		  grid-template-columns: repeat(1, 1fr);
+		  gap: 13px;
+		  padding-left: 0px;
+		}
+	</style>
+
+</head>
+
+<body>
+  <header>
+    <h1 id="header"></h1>
+    <div id="language-toggle">
+	  <span id="flag-en" class="flag">🇬🇧</span>
+	  <label class="switch">
+		<input id="language-switch" type="checkbox" onchange="setTimeout(() => {translatePage(this.checked ? 'de' : 'en')}, 125);"><span class="slider"></span>
+	  </label>
+	  <span id="flag-de" class="flag">🇩🇪</span>
+	</div>
+  </header>
+
+  <div id="current-letters-card" class="card">
+    <h2 id="tree-container"></h2>
+	<h2 id="current-greating"></h2>
+	<p id="current-intro"></p>
+    <div id="current-letters-buttons" class="button-container"></div>
+  </div>
+
+  <div id="archive-letters-card" class="card">
+    <button id="archive-toggle" onclick="toggleArchiveVisibility()">▼</button>
+    <h2 id="archive-header" onclick="toggleArchiveVisibility()"></h2>
+    <div id="archive-content">
+	  <p id="archive-description"></p>
+	  <p id="archive-signature"></p>
+	  <hr id="archive-divider">
+	  <table>
+		<tbody id="archive-table-body"></tbody>
+	  </table>
+	</div>
+  </div>
+  
+  <!-- Fix to get the country flags to show in Chromium browsers -->
+  <script type="module" defer>
+    import { polyfillCountryFlagEmojis } from "https://cdn.skypack.dev/country-flag-emoji-polyfill";
+    polyfillCountryFlagEmojis();
+  </script>
+
+  <script>
+	async function generateButtons() {
+	
+	  const response = await fetch('configs/letter_data.json');
+      const letterData = await response.json()
+	
+	  // Generate buttons for the current year
+	  const currentLettersButtons = document.getElementById('current-letters-buttons');
+	  const currentYearData = letterData[0];
+	  createButtons(letterData[0].letters, currentLettersButtons);
+
+	  // Generate archive table rows for past years (excluding current year)
+	  const archiveTableBody = document.getElementById('archive-table-body');
+	  archiveTableBody.innerHTML = "";
+	  
+	  letterData.slice(1).forEach(item => { // Exclude the first item in the array
+		const tr = document.createElement('tr');
+		const tdYear = document.createElement('td');
+		tdYear.classList.add('year');
+		tdYear.textContent = item.year;
+	  
+		const tdLinks = document.createElement('td');
+		tdLinks.classList.add('button-container');
+
+		createButtons(item.letters, tdLinks);
+
+		tr.appendChild(tdYear);
+		tr.appendChild(tdLinks);
+		archiveTableBody.appendChild(tr);
+	  });
+	}
+
+	
+	function translatePage(language) {
+	
+		generateButtons();
+	
+		const translations = {
+			en: {
+				title: "Smith Family Christmas Letters",
+				header: "Smith\u00A0Family Christmas\u00A0Letters",
+				currentGreeting: "Merry Christmas from the Smith family!",
+				currentIntro: "Want to know what we’ve been up to this year? Click below to read our annual Christmas letter.",
+				archiveHeader: "Christmas Letter Archive",
+				archiveHeaderMobile: "Archive",
+				archiveDescription: "Step back in time and discover the evolution of our family's journey over the years through our previous Christmas letters. Each letter serves as a time capsule capturing our family's growth, achievements, and the little anecdotes that make each year unique. Take a stroll down memory lane and witness the annual chapters of our family's story.",
+				archiveSignature: "- The Smith Family",
+			},
+			de: {
+				title: "Weihnachtsbriefe der Familie Smith",
+				header: "Weihnachtsbriefe der\u00A0Familie\u00A0Smith",
+				currentGreeting: "Frohe Weihnachten von der Familie Smith!",
+				currentIntro: "Möchtest du wissen, was wir dieses Jahr erlebt haben? Klick unten, um unseren jährlichen Weihnachtsbrief zu lesen.",
+				archiveHeader: "Archiv der Weihnachtsbriefe",
+				archiveHeaderMobile: "Archiv",
+				archiveDescription: "Taucht ein in die Vergangenheit und entdeckt die Entwicklung unserer Familie im Laufe der Jahre, anhand unserer jährlichen Weihnachtsbriefe. Jeder Brief ist wie eine Zeitkapsel, in der das Wachstum unserer Familie, ihre Erfolge und die kleinen Anekdoten, die jedes Jahr einzigartig machen, festgehalten werden.",
+				archiveSignature: ">> Familie Smith",
+			},
+		};
+		
+		document.documentElement.setAttribute('lang', language);
+		document.title = translations[language]['title'];
+
+		const elementsToTranslate = {
+			header: document.getElementById('header'),
+			currentGreeting: document.getElementById('current-greating'),
+			currentIntro: document.getElementById('current-intro'),
+			archiveHeader: document.getElementById('archive-header'),
+			archiveDescription: document.getElementById('archive-description'),
+			archiveSignature: document.getElementById('archive-signature'),
+		};
+	
+        Object.keys(elementsToTranslate).forEach(key => {
+            if (elementsToTranslate[key]) {
+				elementsToTranslate[key].textContent = isMobileView() && translations[language][key+'Mobile'] ? translations[language][key+'Mobile'] : translations[language][key];
+            }
+        });
+    }
+
+	function toggleArchiveVisibility() {
+	  const archiveContent = document.getElementById('archive-content');
+	  const toggleArchiveBtn = document.getElementById('archive-toggle');
+	  archiveContent.style.display = archiveContent.style.display === 'block' ? 'none' : 'block';
+	  toggleArchiveBtn.textContent = toggleArchiveBtn.textContent === '▼' ? '▲' : '▼';
+	}
+	
+	// Helper function to create buttons
+	function createButtons(buttons, container) {
+	  const orderedButtons = isGermanSelected() ? buttons.slice().reverse() : buttons;
+	  container.innerHTML = "";
+	  
+	  orderedButtons.forEach(button => {
+		const aTag = document.createElement('a');
+		const flagSpan = document.createElement('span');
+		flagSpan.classList.add('flag-emoji');
+		flagSpan.textContent = button.language === "de" ? "🇩🇪" : "🇬🇧";
+
+		aTag.href = button.pdfSrc;
+		aTag.target = "_blank";
+		if (button.title) {
+		  aTag.append(button.title + '');
+		}
+		aTag.append(flagSpan);
+		container.appendChild(aTag);
+	  });
+	}
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', () => {
+		document.getElementById('language-switch').checked = isUsingGermanBrowser();
+		document.getElementById('tree-container').innerHTML = '🎄'.repeat(isMobileView() ? 4 : 7);
+        translatePage(isUsingGermanBrowser() ? 'de' : 'en');
+    });
+	
+	const isUsingGermanBrowser = () => (navigator.language || navigator.userLanguage).startsWith('de');
+    const isMobileView = () => window.innerWidth <= 768;
+	const isGermanSelected = () => document.getElementById('language-switch').checked;
+  </script>
+
+</body>
+
+</html>
