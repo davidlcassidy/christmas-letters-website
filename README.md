@@ -20,10 +20,9 @@ This project provides the code and instructions to create a simple bilingual web
 
 - **Bilingual Support**: Built-in language toggle and translation logic. 
 - **Responsive Design**: Mobile-friendly layout.
-- **Interactive Archive**: Includes a table of past letters for easy navigation.
 - **Login & Authentication**: Middleware authentication to restrict access with a password.
-- **Free Website Hosting**: Hosted as a Cloudflare Pages site for fast and secure performance.
-- **Simple Deployment**: Fork, configure, and deploy seamlessly with Cloudflare.
+- **Free Website Hosting**: Hosted as a Cloudflare Pages site.
+- **Simple Deployment**: Fork, configure, and deploy quickly with Cloudflare/Wrangler.
 
 ## Project Structure
 
