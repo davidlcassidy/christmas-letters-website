@@ -64,8 +64,8 @@
   {
 	"year": 2015,
 	"letters": [
-	  { "title": "Version 1", "language": "de", "pdfSrc": "letters/2015 - Smith Family Christmas Letter (German).pdf" },
-	  { "title": "Version 2", "language": "de", "pdfSrc": "letters/2015 - Smith Family Christmas Letter (German).pdf" }
+	  { "title": "Version 1", "language": "en", "pdfSrc": "letters/2015 - Smith Family Christmas Letter (English).pdf" },
+	  { "title": "Version 2", "language": "en", "pdfSrc": "letters/2015 - Smith Family Christmas Letter (English).pdf" }
 	]
   },
   {
