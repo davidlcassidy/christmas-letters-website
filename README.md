@@ -5,8 +5,9 @@ This project provides the code and instructions to create a simple bilingual web
 
 ## Table of Contents
 
-- [Features](#features)
+-  [Features](#features)
 -  [Project Structure](#project-structure)
+-  [Screenshots](#screenshots)
 -  [Login and Authentication](#login-and-authentication)
 -  [Configuration](#configuration)
     -   [Letter Data JSON File](#letter-data-json-file)
@@ -32,9 +33,37 @@ This project provides the code and instructions to create a simple bilingual web
 ├── /functions
 │   └── _middleware.ts         # Middleware for login and authentication
 ├── /letters                   # Directory containing the Christmas letters as PDF files
+├── /screenshots               # Directory containing the project screenshots
 ├── index.html                 # Main HTML file for the website
 ├── wrangler.toml              # Cloudflare Pages configuration file
 ```
+
+## Screenshots
+
+### Login Page  
+*Secure login page where users can enter a password to access the family Christmas letters.*
+
+![Login Page](screenshots/LoginPage.png)  
+
+
+---
+
+### Language Toggle  
+*Website displayed in English, showing the language toggle in the header.*
+
+![English Toggle](screenshots/EnglishToggle.png)  
+
+*Website displayed in German.*
+
+![German Toggle](screenshots/GermanToggle.png)  
+
+
+---
+
+### Archive  
+*Organized archive showcasing previous Christmas letters by year and language.*
+
+![Archive](screenshots/Archive.png)  
 
 ## Login and Authentication
 
