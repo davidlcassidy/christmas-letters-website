@@ -30,7 +30,8 @@ This project provides the code and instructions to create a simple bilingual web
 
 ```plaintext
 ├── /configs
-│   └── letter_data.json       # Configuration for letters and their metadata
+│   └── christmas_letters.json
+│   └── localization.json
 ├── /functions
 │   └── _middleware.ts         # Middleware for login and authentication
 ├── /letters                   # Directory containing the Christmas letters as PDF files
@@ -123,10 +124,11 @@ Here’s a sample of the data from `localization.json`:
   },
   "translations": {
     "en": {
-      // English translations
+      "mainPageTitle": "{{familyName}} Family Christmas Letters",
     },
     "de": {
-      // German translations}
+      "mainPageTitle": "Weihnachtsbriefe der Familie {{familyName}}"
+    }
   }
 }
 ```
@@ -136,18 +138,20 @@ Here’s a sample of the data from `localization.json`:
 1. **Fork the Repository**:
    - Click the "Fork" button in GitHub to create your copy of the repository. I highly recommend keeping your forked repository private to insure your Christmas letters and website password remain private.
    
-2. **Update Configuration**:
-   - Update the `wrangler.toml` file with your desired project name and website password.
-   - Add your Christmas letters in pdf format to the `/letters` directory
-   - Update the `christmas_letters.json` file to match the name, language, and location of each Christmas letter. 
-   - Update the `localization.json` file with to enable your desired languages and update the familyName placeholder (unless of course you family name is actually Smith 😋 ). Optionally, you can also customize the translations as needed or add a new language if your desired language is missing.
+2. **Add Christmas Letters**:
+   - Add your Christmas letters in PDF format to the `/letters` directory.
 
-3. **Deploy with Cloudflare Pages**:
+3. **Update Configurations**:
+   - Update the `wrangler.toml` file with your desired project name and website password.
+   - Update the `christmas_letters.json` file to match the name, language, and location of each Christmas letter. 
+   - Update the `localization.json` file with to enable your desired language(s) and update the familyName placeholder (unless of course you family name is actually Smith 😋 ). Optionally, you can also customize the translations as needed or add a new language if your desired language is missing.
+
+4. **Deploy with Cloudflare Pages**:
     -   Create a new Cloudflare Pages project, keeping all the default settings.
     -   Link it to your newly forked repository. Cloudflare and Wrangler will automatically set up the build pipeline for your project and any future changes to your GitHub repo will automatically trigger a build in Cloudflare Pages.
     -   Once the build process is complete, Cloudflare will provide you with a URL for your project (e.g., `https://your-project-name.pages.dev`).
 
-4. **(Optional) Set Up a Custom Domain**:
+5. **(Optional) Set Up a Custom Domain**:
     -   If you have a custom domain name and want to use it for your Christmas letter website, you can set up a DNS record to point to the new Cloudflare Page. This will allow you to access your site using your custom domain (e.g., `christmasletters.yourdomain.com`)
     -   In your Cloudflare dashboard, go to your domain's DNS settings and add a CNAME or A record that points to the URL Cloudflare provided for your project.
 
