@@ -78,6 +78,7 @@
 		  padding: 3px 0px;
 		  margin: 5px;
 		  font-size: 20px;
+		  min-height: 62px;
 		  color: var(--text-button);
 		  background: var(--background-button);
 		  border-radius: 8px;
@@ -99,11 +100,11 @@
 		}
 
 		#language-toggle {
+		  display: none;
 		  position: absolute;
 		  right: 25px;
 		  top: 50%;
 		  transform: translateY(-50%);
-		  display: flex;
 		  align-items: center;
 		  gap: 15px;
 		}
@@ -252,13 +253,6 @@
 		grid-template-columns: repeat(3, 1fr);
 		gap: 10px;
 	  }
-
-	  /* Mobile Responsiveness */
-	  @media (max-width: 1200px) {
-		#language-toggle {
-		  display: none;
-		}
-	  }
 	  
 	  @media (max-width: 768px) {
 		h1 {
@@ -340,11 +334,11 @@
   <header>
     <h1 id="header"></h1>
     <div id="language-toggle">
-	  <span id="flag-en" class="flag">🇬🇧</span>
+	  <span id="flag-1" class="flag"></span>
 	  <label class="switch">
-		<input id="language-switch" type="checkbox" onchange="setTimeout(() => {translatePage(this.checked ? 'de' : 'en')}, 125);"><span class="slider"></span>
+		<input id="language-switch" type="checkbox" onchange="translatePage(); generateButtons();"><span class="slider"></span>
 	  </label>
-	  <span id="flag-de" class="flag">🇩🇪</span>
+	  <span id="flag-2" class="flag"></span>
 	</div>
   </header>
 
@@ -375,83 +369,97 @@
   </script>
 
   <script>
-	async function generateButtons() {
+  
+	let localizationConfig = null;
+    let letterConfig = null;
 	
-	  const response = await fetch('configs/letter_data.json');
-      const letterData = await response.json()
+	function setToggleLanguages() {
+	  try {
+		const enabledLanguages = localizationConfig.enabledLanguages.split(',').map(lang => lang.trim()).slice(0, 2);
+		if (enabledLanguages.length == 2 && isDesktopView()) {
+		  document.getElementById('flag-1').textContent = getFlagEmoji(enabledLanguages[0]);
+		  document.getElementById('flag-2').textContent = getFlagEmoji(enabledLanguages[1]);
+		  document.getElementById('language-toggle').style.display = 'flex';
+		}
+		document.getElementById('language-switch').checked = (navigator.language || navigator.userLanguage).startsWith(enabledLanguages[1]);
+	  } catch (error) {
+		console.error('Error populating available languages:', error);
+	  }
+	}
 	
-	  // Generate buttons for the current year
-	  const currentLettersButtons = document.getElementById('current-letters-buttons');
-	  const currentYearData = letterData[0];
-	  createButtons(letterData[0].letters, currentLettersButtons);
+	function translatePage() {
+	  const enabledLanguages = localizationConfig.enabledLanguages.split(',').map(lang => lang.trim()).slice(0, 2);
 
-	  // Generate archive table rows for past years (excluding current year)
-	  const archiveTableBody = document.getElementById('archive-table-body');
-	  archiveTableBody.innerHTML = "";
-	  
-	  letterData.slice(1).forEach(item => { // Exclude the first item in the array
-		const tr = document.createElement('tr');
-		const tdYear = document.createElement('td');
-		tdYear.classList.add('year');
-		tdYear.textContent = item.year;
-	  
-		const tdLinks = document.createElement('td');
-		tdLinks.classList.add('button-container');
+	  if (enabledLanguages.length === 0) {
+		console.error('No enabled languages provide.');
+		return;
+	  }
 
-		createButtons(item.letters, tdLinks);
+	  const selectedLanguage = isSecondLanguageSelected() ? enabledLanguages[1] : enabledLanguages[0];
 
-		tr.appendChild(tdYear);
-		tr.appendChild(tdLinks);
-		archiveTableBody.appendChild(tr);
+	  const placeholders = localizationConfig.placeholders || {};
+	  const translations = localizationConfig.translations[selectedLanguage];
+
+	  if (!translations) {
+		console.error(`Translations for language '${selectedLanguage}' not found.`);
+		return;
+	  }
+
+	  document.documentElement.setAttribute('lang', selectedLanguage);
+	  document.title = replacePlaceholders(translations.mainPageTitle, placeholders);
+
+	  const elementsToTranslate = {
+		header: document.getElementById('header'),
+		currentGreeting: document.getElementById('current-greating'),
+		currentIntro: document.getElementById('current-intro'),
+		archiveHeader: document.getElementById('archive-header'),
+		archiveDescription: document.getElementById('archive-description'),
+		archiveSignature: document.getElementById('archive-signature'),
+	  };
+
+	  Object.keys(elementsToTranslate).forEach((key) => {
+		if (elementsToTranslate[key]) {
+		  const shortKey = `${key}Short`;
+		  const text = isMobileView() && translations[shortKey] ? translations[shortKey] : translations[key];
+		  elementsToTranslate[key].textContent = replacePlaceholders(text, placeholders);
+		}
 	  });
 	}
+	
+	function generateButtons() {
+	  try {
+		const letterYears = Object.keys(letterConfig).map(year => parseInt(year));
+		const currentYear = Math.max(...letterYears);
 
-	
-	function translatePage(language) {
-	
-		generateButtons();
-	
-		const translations = {
-			en: {
-				title: "Smith Family Christmas Letters",
-				header: "Smith\u00A0Family Christmas\u00A0Letters",
-				currentGreeting: "Merry Christmas from the Smith family!",
-				currentIntro: "Want to know what we’ve been up to this year? Click below to read our annual Christmas letter.",
-				archiveHeader: "Christmas Letter Archive",
-				archiveHeaderMobile: "Archive",
-				archiveDescription: "Step back in time and discover the evolution of our family's journey over the years through our previous Christmas letters. Each letter serves as a time capsule capturing our family's growth, achievements, and the little anecdotes that make each year unique. Take a stroll down memory lane and witness the annual chapters of our family's story.",
-				archiveSignature: "- The Smith Family",
-			},
-			de: {
-				title: "Weihnachtsbriefe der Familie Smith",
-				header: "Weihnachtsbriefe der\u00A0Familie\u00A0Smith",
-				currentGreeting: "Frohe Weihnachten von der Familie Smith!",
-				currentIntro: "Möchtest du wissen, was wir dieses Jahr erlebt haben? Klick unten, um unseren jährlichen Weihnachtsbrief zu lesen.",
-				archiveHeader: "Archiv der Weihnachtsbriefe",
-				archiveHeaderMobile: "Archiv",
-				archiveDescription: "Taucht ein in die Vergangenheit und entdeckt die Entwicklung unserer Familie im Laufe der Jahre, anhand unserer jährlichen Weihnachtsbriefe. Jeder Brief ist wie eine Zeitkapsel, in der das Wachstum unserer Familie, ihre Erfolge und die kleinen Anekdoten, die jedes Jahr einzigartig machen, festgehalten werden.",
-				archiveSignature: ">> Familie Smith",
-			},
-		};
-		
-		document.documentElement.setAttribute('lang', language);
-		document.title = translations[language]['title'];
+		// Generate buttons for the current year
+		const currentLettersButtons = document.getElementById('current-letters-buttons');
+		currentLettersButtons.innerHTML = "";
+		createButtons(letterConfig[currentYear], currentLettersButtons);
 
-		const elementsToTranslate = {
-			header: document.getElementById('header'),
-			currentGreeting: document.getElementById('current-greating'),
-			currentIntro: document.getElementById('current-intro'),
-			archiveHeader: document.getElementById('archive-header'),
-			archiveDescription: document.getElementById('archive-description'),
-			archiveSignature: document.getElementById('archive-signature'),
-		};
-	
-        Object.keys(elementsToTranslate).forEach(key => {
-            if (elementsToTranslate[key]) {
-				elementsToTranslate[key].textContent = isMobileView() && translations[language][key+'Mobile'] ? translations[language][key+'Mobile'] : translations[language][key];
-            }
-        });
-    }
+		// Generate archive table rows for the previous years
+		const archiveTableBody = document.getElementById('archive-table-body');
+		archiveTableBody.innerHTML = "";
+		letterYears
+		  .filter(year => year !== currentYear)
+		  .sort((a, b) => b - a) // Sort years in descending order
+		  .forEach(year => {
+			const tr = document.createElement('tr');
+			const tdYear = document.createElement('td');
+			tdYear.classList.add('year');
+			tdYear.textContent = year;
+
+			const tdLinks = document.createElement('td');
+			tdLinks.classList.add('button-container');
+			createButtons(letterConfig[year], tdLinks);
+
+			tr.appendChild(tdYear);
+			tr.appendChild(tdLinks);
+			archiveTableBody.appendChild(tr);
+		  });
+	  } catch (error) {
+		console.error('Error generating buttons:', error);
+	  }
+	}
 
 	function toggleArchiveVisibility() {
 	  const archiveContent = document.getElementById('archive-content');
@@ -462,35 +470,59 @@
 	
 	// Helper function to create buttons
 	function createButtons(buttons, container) {
-	  const orderedButtons = isGermanSelected() ? buttons.slice().reverse() : buttons;
-	  container.innerHTML = "";
-	  
+	  const orderedButtons = isSecondLanguageSelected() ? buttons.slice().reverse() : buttons;
+	  container.innerHTML = ""; // Clear container
 	  orderedButtons.forEach(button => {
 		const aTag = document.createElement('a');
 		const flagSpan = document.createElement('span');
 		flagSpan.classList.add('flag-emoji');
-		flagSpan.textContent = button.language === "de" ? "🇩🇪" : "🇬🇧";
+		flagSpan.textContent = button.language && getFlagEmoji(button.language);
 
 		aTag.href = button.pdfSrc;
 		aTag.target = "_blank";
-		if (button.title) {
-		  aTag.append(button.title + '');
-		}
-		aTag.append(flagSpan);
+		aTag.textContent = button.title || "";
+		aTag.appendChild(flagSpan);
+
 		container.appendChild(aTag);
 	  });
 	}
+	
+	// Helper function to provide the flag emoji corresponding to a language code
+	function getFlagEmoji(languageCode) {
+	  const countryCodeOverrides = {
+		'en': 'gb',
+		'pt': 'br',
+		'zh': 'cn',
+		'ar': 'sa',
+		'hi': 'in',
+	  };
+	  const countryCode = countryCodeOverrides[languageCode] || languageCode;
+	  const codePoints = countryCode.toUpperCase().split('').map(c => 0x1F1E6 - 65 + c.charCodeAt(0));
+	  return String.fromCodePoint(...codePoints);
+	}
 
     // Initialize the page
-    document.addEventListener('DOMContentLoaded', () => {
-		document.getElementById('language-switch').checked = isUsingGermanBrowser();
-		document.getElementById('tree-container').innerHTML = '🎄'.repeat(isMobileView() ? 4 : 7);
-        translatePage(isUsingGermanBrowser() ? 'de' : 'en');
-    });
+    document.addEventListener('DOMContentLoaded', async () => {
+		try {
+			// Load config files
+			const localizationConfigResponse = await fetch('configs/localization.json');
+			const letterConfigResponse = await fetch('configs/christmas_letters.json');
+			localizationConfig = await localizationConfigResponse.json();
+			letterConfig = await letterConfigResponse.json();
+			
+			document.getElementById('tree-container').innerHTML = '🎄'.repeat(isMobileView() ? 4 : 7);
+			setToggleLanguages();
+			translatePage();
+			generateButtons();
+		} catch (error) {
+			console.error('Error loading configuration files:', error);
+		}
+	});
 	
-	const isUsingGermanBrowser = () => (navigator.language || navigator.userLanguage).startsWith('de');
+	const isDesktopView = () => window.innerWidth >= 1200;
     const isMobileView = () => window.innerWidth <= 768;
-	const isGermanSelected = () => document.getElementById('language-switch').checked;
+	const replacePlaceholders = (text, placeholders) => text.replace(/{{(.*?)}}/g, (_, key) => placeholders[key.trim()] || '');
+	const isSecondLanguageSelected = () => document.getElementById('language-switch').checked;
   </script>
 
 </body>

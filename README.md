@@ -1,25 +1,26 @@
 
+
 # Family Christmas Letter Website
 
 This project provides the code and instructions to create a simple bilingual website for sharing private family Christmas letters with password protection and easy deployment. 
 
 ## Table of Contents
 
--  [Features](#features)
--  [Project Structure](#project-structure)
--  [Screenshots](#screenshots)
--  [Login and Authentication](#login-and-authentication)
--  [Configuration](#configuration)
-    -   [Letter Data JSON File](#letter-data-json-file)
-    -   [Languages](#languages)
--   [Deployment](#deployment)
--  [Live Demo](#live-demo)
--  [Future Enhancements](#future-enhancements)
--  [License](#license)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Screenshots](#screenshots)
+- [Login and Authentication](#login-and-authentication)
+- [Configuration](#configuration)
+    - [Christmas Letters](#christmas-letters)
+    - [Localization](#localization)
+- [Deployment](#deployment)
+- [Live Demo](#live-demo)
+- [License](#license)
+
 
 ## Features
 
-- **Bilingual Support**: Built-in language toggle and translation logic. 
+- **Bilingual Support**: Built-in language toggle, translation logic, and localization configurations. 
 - **Responsive Design**: Mobile-friendly layout.
 - **Login & Authentication**: Middleware authentication to restrict access with a password.
 - **Free Website Hosting**: Hosted as a Cloudflare Pages site.
@@ -49,11 +50,11 @@ This project provides the code and instructions to create a simple bilingual web
 ---
 
 ### Language Toggle  
-*Website displayed in English, showing the language toggle in the header.*
+*Single language website with no language toggle.*
 
-![English Toggle](screenshots/EnglishToggle.png)  
+![English No Toggle](screenshots/EnglishNoToggle.png)  
 
-*Website displayed in German.*
+*Bilingual website with language toggle in the header.*
 
 ![German Toggle](screenshots/GermanToggle.png)  
 
@@ -71,13 +72,11 @@ The middleware layer functionality is centered around managing access to the pri
 
 ## Configuration
 
-### Letter Data JSON File
+### Christmas Letters
 
-The `letter_data.json` file holds the details for each year's family Christmas letters, including the year, title (optional), language, and the location of the corresponding PDF file. This configuration is essential for organizing and displaying the letters on the website, with the most recent year (first year object in json array) shown in the main section and previous letters located in the Archive section. 
+The `christmas_letters.json` file holds the details for each year's family Christmas letters, including the year, title (optional), language (optional), and the location of the corresponding PDF file. This configuration is essential for organizing and displaying the letters on the website, with the most recent year shown in the main section and previous letters located in the Archive section. 
 
-### Sample Data Structure
-
-Here’s a sample of the data from `letter_data.json`:
+Here’s a sample of the data from `christmas_letters.json`:
 
 
 ```json
@@ -99,12 +98,38 @@ Here’s a sample of the data from `letter_data.json`:
   }
 ]
 ``` 
-### Languages
-The website is currently set up to toggle between English and German. But that can be easily changed or disabled all together (single language website).
 
--   **Change Languages:** To switch from English/German to something like English/Spanish or English/French, you’ll need to update the translations in both `index.html`  for the main website and `_middleware.ts` for the logic page. Also, update the emoji flags in the language toggle to include new languages.
-    
--   **Set to Single Language:** If you prefer a single-language experience and want to remove the ability to switch between languages, simply comment out or remove the language toggle section in the HTML and the `translatePage()` function in the JavaScript code. This will keep the website in one language permanently.
+### Localization
+
+The `localization.json` file contains the configuration for the localization settings of the website. It includes a list of enabled languages, translations for various elements of the page, and placeholder variables for dynamic content. This configuration file allows you to easily manage and add new languages, update page content dynamically, and maintain a seamless user experience across multiple languages.
+
+#### Key Fields:
+
+- **enabledLanguages**: A comma-separated list of the enabled languages used to populate the language toggle in the header. If only one language is provided, the website will be monolingual. 
+
+- **placeholders**: A set of dynamic variables that will be replaced in the translated page content (e.g., year, family name). 
+
+- **translations**: An object containing key-value pair translations for each language.
+
+The provided configuration file currently includes support for English, Spanish, French, and German. However, it is easy to extend this configuration to add additional languages by following the existing structure. 
+
+Here’s a sample of the data from `localization.json`:
+
+```json
+{
+  "enabledLanguages": "en, de",
+  "placeholders": {
+    "familyName": "Smith"
+  },
+  "translations": {
+    "en": {
+      // English translations
+    },
+    "de": {
+      // German translations}
+  }
+}
+```
 
 ## Deployment
 
@@ -113,9 +138,9 @@ The website is currently set up to toggle between English and German. But that c
    
 2. **Update Configuration**:
    - Update the `wrangler.toml` file with your desired project name and website password.
-   - Add your Christmas letters in pdf format the `/letters` directory
-   - Update the `letter_data.json` file to match the name, language and location of each Christmas letter.
-   - Update the HTML as needed. For example, replace "Smith" with your family name (unless of course you family name is actually Smith 😋 ).
+   - Add your Christmas letters in pdf format to the `/letters` directory
+   - Update the `christmas_letters.json` file to match the name, language, and location of each Christmas letter. 
+   - Update the `localization.json` file with to enable your desired languages and update the familyName placeholder (unless of course you family name is actually Smith 😋 ). Optionally, you can also customize the translations as needed or add a new language if your desired language is missing.
 
 3. **Deploy with Cloudflare Pages**:
     -   Create a new Cloudflare Pages project, keeping all the default settings.
@@ -133,10 +158,6 @@ You can view a live demo of the website, built directly from this repository, at
  [https://christmas-letters-demo.pages.dev/](https://christmas-letters-demo.pages.dev/). 
 
 To login, use the password: **`demo123`**.
-
-## Future Enhancements
-
--   **Language Configuration:** Move translations to a separate config file for easier management and maintenance, making it simpler to add new languages and update content without altering the website’s code.
 
 ## License
 

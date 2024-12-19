@@ -1,0 +1,61 @@
+{
+	"2024": [
+		{ "language": "en", "pdfSrc": "letters/2024 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2024 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2023": [
+		{ "title": "Version 1", "language": "en", "pdfSrc": "letters/2023 - Smith Family Christmas Letter (English).pdf" },
+		{ "title": "Version 2", "language": "en", "pdfSrc": "letters/2023 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2023 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2022": [
+		{ "language": "en", "pdfSrc": "letters/2022 - Smith Family Christmas Letter (English).pdf" }
+	],
+	"2021": [
+		{ "language": "en", "pdfSrc": "letters/2021 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2021 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2020": [
+		{ "language": "en", "pdfSrc": "letters/2020 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2020 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2019": [
+		{ "language": "en", "pdfSrc": "letters/2019 - Smith Family Christmas Letter (English).pdf" }
+	],
+	"2018": [
+		{ "title": "Version 1", "language": "en", "pdfSrc": "letters/2018 - Smith Family Christmas Letter (English).pdf" },
+		{ "title": "Version 2", "language": "en", "pdfSrc": "letters/2018 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2018 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2017": [
+		{ "language": "en", "pdfSrc": "letters/2017 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2017 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2016": [
+		{ "language": "de", "pdfSrc": "letters/2016 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2015": [
+		{ "title": "Version 1", "language": "en", "pdfSrc": "letters/2015 - Smith Family Christmas Letter (English).pdf" },
+		{ "title": "Version 2", "language": "en", "pdfSrc": "letters/2015 - Smith Family Christmas Letter (English).pdf" }
+	],
+	"2014": [
+		{ "language": "en", "pdfSrc": "letters/2014 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2014 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2013": [
+		{ "language": "en", "pdfSrc": "letters/2013 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2013 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2012": [
+		{ "language": "en", "pdfSrc": "letters/2012 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2012 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2011": [
+		{ "language": "en", "pdfSrc": "letters/2011 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2011 - Smith Family Christmas Letter (German).pdf" }
+	],
+	"2010": [
+		{ "language": "en", "pdfSrc": "letters/2010 - Smith Family Christmas Letter (English).pdf" },
+		{ "language": "de", "pdfSrc": "letters/2010 - Smith Family Christmas Letter (German).pdf" }
+	]
+}

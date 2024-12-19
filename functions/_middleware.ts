@@ -1,4 +1,5 @@
 import { getCookieKeyValue, sha256 } from './utils';
+import localizationJson from '../configs/localization.json';
 
 /**
  * Middleware flow:
@@ -76,7 +77,7 @@ async function authenticationCheck(context: {
     return next();
   }
 
-  const lang = browserLanguage.startsWith('de') ? 'de' : 'en';
+  const lang = browserLanguage.split('-')[0] || 'en';
   const html = getLoginTemplate({
     redirectPath: pathname,
     withError: error === '1',
@@ -98,39 +99,15 @@ function getLoginTemplate({
   withError: boolean;
   lang: string;
 }): string {
-  const translations = {
-    en: {
-      pageTitle: 'Password Protected Site',
-      description: 'This site is password protected.',
-      passwordLabel: 'Password Protected',
-      passwordPrompt: 'Please enter your password for this site.',
-      passwordPlaceholder: 'Password',
-      loginButton: 'Login',
-      errorMessage: 'Incorrect password, please try again.',
-      requiredMessage: 'This field is required.',
-    },
-    de: {
-      pageTitle: 'Passwortgeschützte Seite',
-      description: 'Diese Seite ist passwortgeschützt.',
-      passwordLabel: 'Passwortgeschützt',
-      passwordPrompt: 'Bitte geben Sie Ihr Passwort für diese Seite ein.',
-      passwordPlaceholder: 'Passwort',
-      loginButton: 'Anmelden',
-      errorMessage: 'Falsches Passwort, bitte versuchen Sie es erneut.',
-      requiredMessage: 'Dieses Feld ist erforderlich.',
-    },
-  };
-
-  const t = translations[lang] || translations.en;
-
+  const t = localizationJson.translations[lang] || localizationJson.translations.en;
   return `
   <!doctype html>
   <html lang="${lang}" data-theme="dark">
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>${t.pageTitle}</title>
-      <meta name="description" content="${t.description}">
+      <title>${t.loginPageTitle}</title>
+      <meta name="description" content="${t.loginPageDescription}">
       <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
       <style>
         body > main {
@@ -170,12 +147,12 @@ function getLoginTemplate({
               autocomplete="current-password"
               required
               autofocus
-              oninvalid="this.setCustomValidity('${t.requiredMessage}')"
+              oninvalid="this.setCustomValidity('${t.requiredFieldMessage}')"
               oninput="this.setCustomValidity('')"
             >
             <button type="submit" class="contrast">${t.loginButton}</button>
           </form>
-          ${withError ? `<p class="error">${t.errorMessage}</p>` : ''}
+          ${withError ? `<p class="error">${t.loginErrorMessage}</p>` : ''}
         </article>
       </main>
     </body>

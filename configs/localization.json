@@ -1,0 +1,80 @@
+{
+  "enabledLanguages": "en,de",
+  "placeholders": {
+    "familyName": "Smith"
+  },
+  "translations": {
+    "en": {
+      "mainPageTitle": "{{familyName}} Family Christmas Letters",
+      "header": "{{familyName}}\u00A0Family Christmas\u00A0Letters",
+      "currentGreeting": "Merry Christmas from the {{familyName}} family!",
+      "currentIntro": "Want to know what we’ve been up to this year? Click below to read our annual Christmas letter.",
+      "archiveHeader": "Christmas Letter Archive",
+      "archiveHeaderShort": "Archive",
+      "archiveDescription": "Step back in time and discover the evolution of our family's journey over the years through our previous Christmas letters. Each letter serves as a time capsule capturing our family's growth, achievements, and the little anecdotes that make each year unique. Take a stroll down memory lane and witness the annual chapters of our family's story.",
+      "archiveSignature": "- The {{familyName}} Family",
+      "loginPageTitle": "Password Protected Site",
+      "loginPageDescription": "This site is password protected.",
+      "passwordLabel": "Password Protected",
+      "passwordPrompt": "Please enter your password for this site.",
+      "passwordPlaceholder": "Password",
+      "loginButton": "Login",
+      "loginErrorMessage": "Incorrect password, please try again.",
+      "requiredFieldMessage": "This field is required."
+    },
+    "es": {
+      "mainPageTitle": "Cartas de Navidad de la Familia {{familyName}}",
+      "header": "Cartas\u00A0de Navidad de la Familia {{familyName}}",
+      "currentGreeting": "¡Feliz Navidad de parte de la familia {{familyName}}!",
+      "currentIntro": "¿Quieres saber qué hemos estado haciendo este año? Haz clic abajo para leer nuestra carta anual de Navidad.",
+      "archiveHeader": "Archivo de Cartas de Navidad",
+      "archiveHeaderShort": "Archivo",
+      "archiveDescription": "Retrocede en el tiempo y descubre la evolución de nuestra familia a lo largo de los años a través de nuestras cartas de Navidad anteriores. Cada carta es como una cápsula del tiempo que captura el crecimiento de nuestra familia, sus logros y las pequeñas anécdotas que hacen que cada año sea único. Pasea por el recuerdo y sé testigo de los capítulos anuales de nuestra historia familiar.",
+      "archiveSignature": "- La Familia {{familyName}}",
+      "loginPageTitle": "Sitio Protegido por Contraseña",
+      "loginPageDescription": "Este sitio está protegido por contraseña.",
+      "passwordLabel": "Protegido por Contraseña",
+      "passwordPrompt": "Por favor, introduce la contraseña para este sitio.",
+      "passwordPlaceholder": "Contraseña",
+      "loginButton": "Iniciar sesión",
+      "loginErrorMessage": "Contraseña incorrecta, por favor inténtalo de nuevo.",
+      "requiredFieldMessage": "Este campo es obligatorio."
+    },
+    "de": {
+      "mainPageTitle": "Weihnachtsbriefe der Familie {{familyName}}",
+      "header": "Weihnachtsbriefe der\u00A0Familie\u00A0{{familyName}}",
+      "currentGreeting": "Frohe Weihnachten von der Familie {{familyName}}!",
+      "currentIntro": "Möchtest du wissen, was wir dieses Jahr erlebt haben? Klick unten, um unseren jährlichen Weihnachtsbrief zu lesen.",
+      "archiveHeader": "Archiv der Weihnachtsbriefe",
+      "archiveHeaderShort": "Archiv",
+      "archiveDescription": "Taucht ein in die Vergangenheit und entdeckt die Entwicklung unserer Familie im Laufe der Jahre, anhand unserer jährlichen Weihnachtsbriefe. Jeder Brief ist wie eine Zeitkapsel, in der das Wachstum unserer Familie, ihre Erfolge und die kleinen Anekdoten, die jedes Jahr einzigartig machen, festgehalten werden.",
+      "archiveSignature": ">> Familie {{familyName}}",
+      "loginPageTitle": "Passwortgeschützte Seite",
+      "loginPageDescription": "Diese Seite ist passwortgeschützt.",
+      "passwordLabel": "Passwortgeschützt",
+      "passwordPrompt": "Bitte geben Sie Ihr Passwort für diese Seite ein.",
+      "passwordPlaceholder": "Passwort",
+      "loginButton": "Anmelden",
+      "loginErrorMessage": "Falsches Passwort, bitte versuchen Sie es erneut.",
+      "requiredFieldMessage": "Dieses Feld ist erforderlich."
+    },
+    "fr": {
+      "mainPageTitle": "Lettres de Noël de la famille {{familyName}}",
+      "header": "Lettres\u00A0de Noël de la\u00A0famille {{familyName}}",
+      "currentGreeting": "Joyeux Noël de la part de la famille {{familyName}} !",
+      "currentIntro": "Vous voulez savoir ce que nous avons fait cette année ? Cliquez ci-dessous pour lire notre lettre de Noël annuelle.",
+      "archiveHeader": "Archives des lettres de Noël",
+      "archiveHeaderShort": "Archives",
+      "archiveDescription": "Faites un voyage dans le passé et découvrez l'évolution de notre famille au fil des années à travers nos lettres de Noël précédentes. Chaque lettre est une capsule temporelle capturant la croissance de notre famille, ses réalisations et les petites anecdotes qui rendent chaque année unique. Promenez-vous dans les souvenirs et soyez témoin des chapitres annuels de notre histoire familiale.",
+      "archiveSignature": "- La famille {{familyName}}",
+      "loginPageTitle": "Site protégé par mot de passe",
+      "loginPageDescription": "Ce site est protégé par mot de passe.",
+      "passwordLabel": "Protégé par mot de passe",
+      "passwordPrompt": "Veuillez entrer votre mot de passe pour ce site.",
+      "passwordPlaceholder": "Mot de passe",
+      "loginButton": "Connexion",
+      "loginErrorMessage": "Mot de passe incorrect, veuillez réessayer.",
+      "requiredFieldMessage": "Ce champ est requis."
+    }
+  }
+}
